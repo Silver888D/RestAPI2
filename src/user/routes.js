@@ -5,7 +5,7 @@ const {hashPass, comparePass} = require('../middleware');
 
 userRouter.post('/user',hashPass,  createUser);
 userRouter.post('/login',comparePass, login);
-userRouter.patch('/user', updateUser);
+userRouter.patch('/user',hashPass, updateUser);
 userRouter.delete('/user', deleteUser);
 
 module.exports = userRouter;
