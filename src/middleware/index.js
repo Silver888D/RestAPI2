@@ -16,12 +16,12 @@ exports.hashPass = async(req,res, next)=>{
 
 exports.comparePass= async(req, res, next)=>{
     try {
-        userRead = await User.findOne({ username: req.body.username });
-        userPass = await bcrypt.compare(req.body.password, userRead.password);
+        req.user = await User.findOne({ username: req.body.username });
+        userPass = await bcrypt.compare(req.body.password, req.user.password);
         if(userPass){next();}
-        else if (!userPass){console.log('Incorrect Password');}
+        else if (!userPass){throw new Error({msg: 'Incorrect login details'});}
     } catch (error) {
         console.log(error);
         res.send({err: error});
     }
-}
+};
