@@ -11,7 +11,7 @@ exports.createUser = async(req, res)=>{
 exports.readUser = async(req,res)=>{
     try {
         if(req.body.username){
-            userRead=User.findOne({username: req.body.username});
+            userRead= await User.findOne({username: req.body.username});
             console.log(userRead);
         }
         else if(req.body.email){
