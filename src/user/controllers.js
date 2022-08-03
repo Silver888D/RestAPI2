@@ -11,7 +11,7 @@ exports.createUser = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const tkn = await jwt.sign({_id: req.user._id}, process.env.SECRET)
-        res.send({user: req.user.username, tkn});}
+        res.send({user: req.user.username, email: req.user.email, tkn});}
     catch (error) {console.log(error); res.send({ err: error });}
     };
 
