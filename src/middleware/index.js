@@ -18,10 +18,12 @@ exports.hashPass = async(req,res, next)=>{
 };
 
 exports.comparePass= async(req, res, next)=>{
+    console.log(req.body);
     try {
         console.log('this is comparePass');
-        req.user = await User.findOne({ username: req.body.username });
-        userPass = await bcrypt.compare(req.body.password, req.user.password);
+        req.user = await User.findOne({ username: req.body.username,});
+        console.log(req.user);
+        userPass = await bcrypt.compare(req.body.new_password, req.user.password);
         if(userPass){next();}
         else if (!userPass){throw new Error({msg: 'Incorrect login details'});}
     } catch (error) {
@@ -45,9 +47,11 @@ exports.tknCheck= async(req,res,next)=>{
 };
 
 exports.emailCheck=async(req,res,next)=>{
+    console.log(req.body);
+    console.log('emailCheck');
     try {
-        if(validator.validate(req.body.email)){next();}
-        else if (!validator.validate(req.body.email)){throw new Error({msg: 'Incorrect login details'});}
+        if(validator.validate(req.body.new_email)){next();}
+        else if (!validator.validate(req.body.new_email)){throw new Error({msg: 'Incorrect login details'});}
     } catch (error) {
         console.log(error);
         res.status(500).send({err:error});
