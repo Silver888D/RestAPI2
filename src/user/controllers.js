@@ -18,9 +18,10 @@ exports.login = async (req, res) => {
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find({});
-        const result = users.map((u) => {
-            return u;
+        const result = users.map((u, index) => {
+            return u.username;
         });
+        console.log(result);
         res.send({  result });}
     catch (error) {
         console.log(error);
@@ -31,9 +32,9 @@ exports.updateUser = async (req, res) => {
     console.log(req.body);
     console.log('userUpdate');
     try {const updates = await {
-            new_username: req.body.new_username,
-            new_email: req.body.new_email,
-            new_password: req.body.new_password,};  
+            username: req.body.new_username,
+            email: req.body.new_email,
+            password: req.body.new_password,};  
             userUpdate =await User.updateOne({ username: req.body.username }, { $set: updates });
             console.log(updates);
             res.send({ msg: "This came from updateUser", userUpdate, updates  });}
