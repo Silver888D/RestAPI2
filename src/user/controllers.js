@@ -8,6 +8,19 @@ exports.createUser = async (req, res) => {
     catch (error) {console.log(error);}
     };
 
+    exports.loginUser = async (req, res) => {
+        try {
+            const users = await User.findOne({username: req.body.username});
+            userPass = await bcrypt.compare(req.body.password, users.password);
+            if(userPass){console.log(users); res.send({  users });}
+            else if (!userPass){throw new Error({msg: 'Incorrect login details'});}
+            
+            }
+        catch (error) {
+            console.log(error);
+            res.send({ err: error });}
+        };
+
 exports.login = async (req, res) => {
     try {
         const tkn = await jwt.sign({_id: req.user._id}, process.env.SECRET)
