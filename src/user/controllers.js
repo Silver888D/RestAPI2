@@ -35,7 +35,7 @@ exports.getAllUsers = async (req, res) => {
             return u.username;
         });
         console.log(result);
-        res.send({  result });}
+        res.send({  users: result });}
     catch (error) {
         console.log(error);
         res.send({ err: error });}
