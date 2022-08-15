@@ -13,7 +13,7 @@ app.use(bodyParser.json({
   
   app.use(bodyParser.urlencoded({
     limit: '50mb',
-    parameterLimit: 300000,
+    parameterLimit: 100000,
     extended: true 
   }));
   app.use(express.json());
